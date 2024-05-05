@@ -1,6 +1,10 @@
 package com.erick.backtech.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -9,6 +13,10 @@ import java.util.Date;
 
 @Entity
 @Table(name="tb_pedido")
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,69 +35,8 @@ public class Pedido implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="cliente_id", referencedColumnName = "id")
-    private Cliente cliente;
+    private Cliente cliente_id;
 
-    public Pedido(Long id, Date dataPedido, String descricao, Double valor, StatusPedido status) {
-        this.id = id;
-        this.dataPedido = dataPedido;
-        this.descricao = descricao;
-        this.valor = valor;
-        this.status = status;
-    }
-
-    public Pedido() {
-
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getDataPedido() {
-        return dataPedido;
-    }
-
-    public void setDataPedido(Date dataPedido) {
-        this.dataPedido = dataPedido;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
-    }
-
-    public StatusPedido getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusPedido status) {
-        this.status = status;
-    }
-
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
 
     // Method to parse a string into a Date object
     public static Date parseDate(String dateString) {

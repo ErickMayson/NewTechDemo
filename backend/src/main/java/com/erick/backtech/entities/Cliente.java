@@ -3,6 +3,7 @@ package com.erick.backtech.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -84,6 +85,11 @@ public class Cliente implements Serializable {
     }
 
     public List<Pedido> getPedidos() {
+
+        if(pedidos == null) {
+            setPedidos(new ArrayList<>());
+        };
+
         return pedidos;
     }
 

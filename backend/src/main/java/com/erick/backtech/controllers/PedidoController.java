@@ -23,8 +23,8 @@ public class PedidoController {
     private PedidoService service;
 
     @PostMapping("/addPedido")
-    public Cliente addPedido (@RequestBody PedidoRequest<Cliente> pedidoRequest) {
-        return service.createPedido(pedidoRequest);
+    public Pedido addPedido (@RequestBody PedidoDTO dto) {
+        return service.createPedido(dto);
     }
 
     @GetMapping
