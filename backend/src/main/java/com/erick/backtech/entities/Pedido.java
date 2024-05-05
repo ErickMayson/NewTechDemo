@@ -33,9 +33,10 @@ public class Pedido implements Serializable {
     @Column(name = "status")
     private StatusPedido status;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="cliente_id", referencedColumnName = "id")
-    private Cliente cliente_id;
+    @Column
+    //@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //@JoinColumn(name="cliente", referencedColumnName = "id")
+    private Long cliente;
 
 
     // Method to parse a string into a Date object

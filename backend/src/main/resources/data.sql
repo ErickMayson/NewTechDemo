@@ -12,7 +12,7 @@ CREATE TYPE status AS ENUM('ACEITO', 'RECUSADO');
 
 CREATE TABLE tb_pedido (
     id SERIAL PRIMARY KEY,
-    cliente_id INT NOT NULL,
+    cliente_id BIGINT NOT NULL,
     dataPedido DATE NOT NULL,
     descricao VARCHAR(255) NOT NULL,
     valor DECIMAL(10,2) NOT NULL,

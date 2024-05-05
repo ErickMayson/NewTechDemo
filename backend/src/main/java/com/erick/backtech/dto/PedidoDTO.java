@@ -6,12 +6,18 @@ import com.erick.backtech.entities.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PedidoDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,80 +29,6 @@ public class PedidoDTO implements Serializable {
 
     private Long cliente_id;
 
-    // @JsonBackReference(value="cliente_id")
-    // private Cliente cliente;
-
-    public PedidoDTO(Long id, Date dataPedido, String descricao, Double valor, StatusPedido status) {
-        this.id = id;
-        this.dataPedido = dataPedido;
-        this.descricao = descricao;
-        this.valor = valor;
-        this.status = status;
-    }
-
-    public PedidoDTO(Pedido entity){
-        id = entity.getId();
-        dataPedido = entity.getDataPedido();
-        descricao = entity.getDescricao();
-        valor = entity.getValor();
-        status = entity.getStatus();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getDataPedido() {
-        return dataPedido;
-    }
-
-    public void setDataPedido(Date dataPedido) {
-        this.dataPedido = dataPedido;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
-    }
-
-    public StatusPedido getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusPedido status) {
-        this.status = status;
-    }
-
-   // public Cliente getCliente() {
-   //     return cliente;
-   // }
-   // public void setCliente(Cliente cliente) {
-   //     this.cliente = cliente;
-   // }
-
-
-    public Long getCliente_id() {
-        return cliente_id;
-    }
-
-    public void setCliente_id(Long cliente_id) {
-        this.cliente_id = cliente_id;
-    }
 
     // Method to parse a string into a Date object
     public static Date parseDate(String dateString) {

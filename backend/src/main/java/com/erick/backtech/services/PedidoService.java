@@ -25,7 +25,9 @@ public class PedidoService {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Transactional
     public Pedido createPedido (PedidoDTO dto) {
+
 
 
         Pedido pedido = Pedido.builder()
@@ -33,7 +35,7 @@ public class PedidoService {
                 .valor(dto.getValor())
                 .descricao(dto.getDescricao())
                 .status(dto.getStatus())
-                .cliente_id(clienteRepository.findById(dto.getCliente_id()).orElse(null))
+                .cliente(dto.getCliente_id())
                 .build();
 
         return pedidoRepository.save(pedido);
@@ -41,5 +43,10 @@ public class PedidoService {
     }
 
     public List<Pedido> getPedidos() { return pedidoRepository.findAll(); }
+
+    public List<Pedido> getPedidosByCliente(Long id) {
+
+        return pedidoRepository.findByCliente(id);
+    }
 
 }

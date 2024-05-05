@@ -1,6 +1,7 @@
 package com.erick.backtech.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,6 +10,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name="tb_cliente")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,74 +34,9 @@ public class Cliente implements Serializable {
     private String endereco;
 
 
-    @OneToMany(mappedBy = "id", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pedido> pedidos;
+    //@OneToMany(mappedBy = "id", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    // private List<Pedido> pedidos;
 
-    public Cliente (){
-
-    }
-
-    public Cliente(Long id, String nome, String email, String telefone, String endereco){
-        super();
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-        this.endereco = endereco;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public List<Pedido> getPedidos() {
-
-        if(pedidos == null) {
-            setPedidos(new ArrayList<>());
-        };
-
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
 
     @Override
     public boolean equals(Object o) {

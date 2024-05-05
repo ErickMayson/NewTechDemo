@@ -30,4 +30,10 @@ public class PedidoController {
     @GetMapping
     public List<Pedido> getPedidos() { return service.getPedidos(); }
 
+    @GetMapping(path="/cliente/id")
+    public List<Pedido> getByClienteId(@RequestParam Long id) {
+
+        return service.getPedidosByCliente(id);
+    }
+
 }
