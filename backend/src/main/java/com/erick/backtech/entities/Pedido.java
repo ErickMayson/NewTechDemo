@@ -24,13 +24,15 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "dataPedido")
+    @Column(name = "datapedido")
     private Date dataPedido;
     @Column(name = "descricao")
     private String descricao;
     @Column(name = "valor")
     private Double valor;
-    @Column(name = "status")
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "statuspedido")
     private StatusPedido status;
 
     @Column
