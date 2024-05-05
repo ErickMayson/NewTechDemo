@@ -19,15 +19,24 @@ public class ClienteController {
     @Autowired
     private ClienteService service;
 
-    @GetMapping
-    public ResponseEntity<List<ClienteDTO>> findAll() {
-        List<ClienteDTO> list = service.findAll();
-        return ResponseEntity.ok().body(list);
-    }
     @PostMapping
     public ResponseEntity<ClienteDTO> insert(@RequestBody ClienteDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
+
+    @GetMapping
+    public ResponseEntity<List<ClienteDTO>> findAll() {
+        List<ClienteDTO> list = service.findAll();
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClienteDTO> getCliente(@PathVariable Long id) {
+        ClienteDTO dto = service.getCliente(id); // Corrected the variable name and added a semicolon
+        return ResponseEntity.ok().body(dto);
+    }
+
+
 }

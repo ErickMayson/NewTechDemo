@@ -26,7 +26,7 @@ public class PedidoController {
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping("/pedidos/{clienteId}")
+    @GetMapping(value="/pedidos/{clienteId}")
     public ResponseEntity<List<PedidoDTO>> findByCliente( @PathVariable Long clienteId) {
 
         List<PedidoDTO> list = service.findByCliente(clienteId);
@@ -42,4 +42,10 @@ public class PedidoController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
+
+    //public ResponseEntity<PedidoDTO>
+
+
+
+
 }

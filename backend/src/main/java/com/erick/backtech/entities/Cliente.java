@@ -13,17 +13,21 @@ public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "nome")
     private String nome;
 
+    @Column(name = "email")
     private String email;
-
+    @Column(name = "telefone")
     private String telefone;
-
+    @Column(name = "endereco")
     private String endereco;
 
-    @OneToMany(mappedBy = "id")
+
+    @OneToMany(mappedBy = "id", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pedido> pedidos;
 
     public Cliente (){

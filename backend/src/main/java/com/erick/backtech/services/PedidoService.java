@@ -43,8 +43,9 @@ public class PedidoService {
 
 
 
-        Pedido pedido = new Pedido(null, dto.getDataPedido(), dto.getDescricao(), dto.getValor(), dto.getStatus(), dto.getCliente_id());
+        // Pedido pedido = new Pedido(null, dto.getDataPedido(), dto.getDescricao(), dto.getValor(), dto.getStatus(), dto.getCliente());
 
+        Pedido pedido = new Pedido(null, dto.getDataPedido(), dto.getDescricao(), dto.getValor(), dto.getStatus());
 
 
         pedido = pedidoRepository.save(pedido);
@@ -52,6 +53,12 @@ public class PedidoService {
 
 
     }
+
+    //public PedidoDTO setStatus(PedidoDTO dto) {
+//
+    //    Pedido pe
+//
+    //}
 
 
 }

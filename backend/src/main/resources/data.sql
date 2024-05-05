@@ -5,6 +5,7 @@ CREATE TABLE tb_cliente (
     email VARCHAR(255) NOT NULL,
     telefone VARCHAR(255) NOT NULL,
     endereco VARCHAR(255) NOT NULL
+
 );
 
 CREATE TYPE status AS ENUM('ACEITO', 'RECUSADO');

@@ -3,6 +3,7 @@ package com.erick.backtech.dto;
 import com.erick.backtech.entities.Cliente;
 import com.erick.backtech.entities.Pedido;
 import com.erick.backtech.entities.StatusPedido;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -21,9 +22,12 @@ public class PedidoDTO implements Serializable {
     private Double valor;
     private StatusPedido status;
 
-    private Cliente cliente_id;
+    private Long cliente_id;
 
-    public PedidoDTO(Long id, Date dataPedido, String descricao, Double valor, StatusPedido status, Cliente cliente_id) {
+    // @JsonBackReference(value="cliente_id")
+    // private Cliente cliente;
+
+    public PedidoDTO(Long id, Date dataPedido, String descricao, Double valor, StatusPedido status) {
         this.id = id;
         this.dataPedido = dataPedido;
         this.descricao = descricao;
@@ -79,11 +83,20 @@ public class PedidoDTO implements Serializable {
         this.status = status;
     }
 
+   // public Cliente getCliente() {
+   //     return cliente;
+   // }
+   // public void setCliente(Cliente cliente) {
+   //     this.cliente = cliente;
+   // }
+
+
     public Long getCliente_id() {
         return cliente_id;
     }
-    public void setCliente_id(Long clientId) {
-        cliente_id = clientId;
+
+    public void setCliente_id(Long cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
     // Method to parse a string into a Date object

@@ -14,17 +14,22 @@ public class Pedido implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "dataPedido")
     private Date dataPedido;
+    @Column(name = "descricao")
     private String descricao;
+    @Column(name = "valor")
     private Double valor;
+    @Column(name = "status")
     private StatusPedido status;
 
-    @ManyToOne
-    @JoinColumn(name="cliente_id")
-    private Cliente cliente_id;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="cliente_id", referencedColumnName = "id")
+    private Cliente cliente;
 
-    public Pedido(Long id, Date dataPedido, String descricao, Double valor, StatusPedido status, Cliente cliente_id) {
+    public Pedido(Long id, Date dataPedido, String descricao, Double valor, StatusPedido status) {
         this.id = id;
         this.dataPedido = dataPedido;
         this.descricao = descricao;
@@ -35,6 +40,7 @@ public class Pedido implements Serializable {
     public Pedido() {
 
     }
+
 
     public Long getId() {
         return id;
@@ -77,12 +83,12 @@ public class Pedido implements Serializable {
     }
 
 
-    public Cliente getCliente_id() {
-        return cliente_id;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setCliente_id(Cliente cliente_id) {
-        this.cliente_id = cliente_id;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     // Method to parse a string into a Date object

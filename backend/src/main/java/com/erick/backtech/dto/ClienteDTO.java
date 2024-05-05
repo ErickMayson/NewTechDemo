@@ -3,6 +3,8 @@ package com.erick.backtech.dto;
 import com.erick.backtech.entities.Cliente;
 import com.erick.backtech.entities.Pedido;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -19,7 +21,7 @@ public class ClienteDTO implements Serializable{
         private String email;
         private String telefone;
         private String endereco;
-
+        // @JsonIgnore
         private List<PedidoDTO> pedidos = new ArrayList<>();
 
         public ClienteDTO (){
