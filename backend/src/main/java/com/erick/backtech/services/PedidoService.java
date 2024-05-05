@@ -5,6 +5,7 @@ import com.erick.backtech.dto.ClienteDTO;
 import com.erick.backtech.dto.PedidoDTO;
 import com.erick.backtech.entities.Cliente;
 import com.erick.backtech.entities.Pedido;
+import com.erick.backtech.entities.StatusPedido;
 import com.erick.backtech.repository.ClienteRepository;
 import com.erick.backtech.repository.PedidoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +50,30 @@ public class PedidoService {
     public List<Pedido> getPedidosByCliente(Long id) {
 
         return pedidoRepository.findByCliente(id);
+    }
+
+    @Transactional
+    public Pedido setAceito(Long id) {
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Pedido com ID " + id + " não encontrado"));
+
+        pedido.setStatus(StatusPedido.ACEITO);
+
+        // Save the updated Pedido object
+
+        return pedidoRepository.save(pedido);
+    }
+
+    @Transactional
+    public Pedido setRecusado(Long id) {
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Pedido com ID " + id + " não encontrado"));
+
+        pedido.setStatus(StatusPedido.RECUSADO);
+
+        // Save the updated Pedido object
+
+        return pedidoRepository.save(pedido);
     }
 
 }
