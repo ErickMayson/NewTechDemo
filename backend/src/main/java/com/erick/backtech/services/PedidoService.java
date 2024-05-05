@@ -17,8 +17,8 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
 
     @Transactional(readOnly = true)
-    public List<PedidoDTO> FindAllByClientId() {
-        List<Pedido> list = pedidoRepository.findById();
+    public List<PedidoDTO> findAll() {
+        List<Pedido> list = pedidoRepository.findAll();
         return list.stream().map(x -> new PedidoDTO(x)).collect(Collectors.toList());
     }
 
