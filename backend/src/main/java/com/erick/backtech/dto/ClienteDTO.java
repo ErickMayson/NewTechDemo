@@ -19,7 +19,7 @@ public class ClienteDTO implements Serializable{
         private String email;
         private String telefone;
         private String endereco;
-        private List<PedidoDTO> pedidos = new ArrayList<>();
+        // private List<PedidoDTO> pedidos = new ArrayList<>();
 
         public ClienteDTO (){
 
