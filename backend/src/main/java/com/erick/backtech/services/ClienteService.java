@@ -21,7 +21,7 @@ public class ClienteService {
         List<Cliente> list = repository.findAll();
         return list.stream().map(x -> new ClienteDTO(x)).collect(Collectors.toList());
     }
-
+    @Transactional
     public ClienteDTO insert(ClienteDTO dto) {
 
         Cliente cliente = new Cliente(null, dto.getNome(), dto.getEmail(), dto.getTelefone(), dto.getEndereco());

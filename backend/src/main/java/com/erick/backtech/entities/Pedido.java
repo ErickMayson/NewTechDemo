@@ -20,12 +20,20 @@ public class Pedido implements Serializable {
     private Double valor;
     private StatusPedido status;
 
-    public Pedido(Long id, Date dataPedido, String descricao, Double valor, StatusPedido status) {
+    @ManyToOne
+    @JoinColumn(name="cliente_id")
+    private Cliente cliente_id;
+
+    public Pedido(Long id, Date dataPedido, String descricao, Double valor, StatusPedido status, Cliente cliente_id) {
         this.id = id;
         this.dataPedido = dataPedido;
         this.descricao = descricao;
         this.valor = valor;
         this.status = status;
+    }
+
+    public Pedido() {
+
     }
 
     public Long getId() {
@@ -68,6 +76,14 @@ public class Pedido implements Serializable {
         this.status = status;
     }
 
+
+    public Cliente getCliente_id() {
+        return cliente_id;
+    }
+
+    public void setCliente_id(Cliente cliente_id) {
+        this.cliente_id = cliente_id;
+    }
 
     // Method to parse a string into a Date object
     public static Date parseDate(String dateString) {

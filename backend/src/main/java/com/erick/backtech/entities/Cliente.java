@@ -3,6 +3,7 @@ package com.erick.backtech.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -21,6 +22,9 @@ public class Cliente implements Serializable {
     private String telefone;
 
     private String endereco;
+
+    @OneToMany(mappedBy = "id")
+    private List<Pedido> pedidos;
 
     public Cliente (){
 

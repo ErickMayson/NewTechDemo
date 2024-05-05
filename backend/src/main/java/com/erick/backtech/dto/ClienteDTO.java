@@ -2,6 +2,7 @@ package com.erick.backtech.dto;
 
 import com.erick.backtech.entities.Cliente;
 import com.erick.backtech.entities.Pedido;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -12,14 +13,14 @@ import java.util.stream.Collectors;
 public class ClienteDTO implements Serializable{
 
         private static final long serialVersionUID = 1L;
-        @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
         private String nome;
         private String email;
         private String telefone;
         private String endereco;
-        // private List<PedidoDTO> pedidos = new ArrayList<>();
+
+        private List<PedidoDTO> pedidos = new ArrayList<>();
 
         public ClienteDTO (){
 
@@ -84,7 +85,7 @@ public class ClienteDTO implements Serializable{
             this.endereco = endereco;
         }
 
-        // public List<PedidoDTO> getPedidos() {return pedidos;} Não sei se vou usar isso tambem.
+        public List<PedidoDTO> getPedidos() {return pedidos;}
 
 
 }

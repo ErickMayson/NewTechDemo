@@ -1,7 +1,9 @@
 package com.erick.backtech.dto;
 
+import com.erick.backtech.entities.Cliente;
 import com.erick.backtech.entities.Pedido;
 import com.erick.backtech.entities.StatusPedido;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -12,7 +14,6 @@ import java.util.Date;
 public class PedidoDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date dataPedido;
@@ -20,7 +21,9 @@ public class PedidoDTO implements Serializable {
     private Double valor;
     private StatusPedido status;
 
-    public PedidoDTO(Long id, Date dataPedido, String descricao, Double valor, StatusPedido status) {
+    private Cliente cliente_id;
+
+    public PedidoDTO(Long id, Date dataPedido, String descricao, Double valor, StatusPedido status, Cliente cliente_id) {
         this.id = id;
         this.dataPedido = dataPedido;
         this.descricao = descricao;
@@ -76,6 +79,12 @@ public class PedidoDTO implements Serializable {
         this.status = status;
     }
 
+    public Long getCliente_id() {
+        return cliente_id;
+    }
+    public void setCliente_id(Long clientId) {
+        cliente_id = clientId;
+    }
 
     // Method to parse a string into a Date object
     public static Date parseDate(String dateString) {
