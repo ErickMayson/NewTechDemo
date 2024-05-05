@@ -1,5 +1,6 @@
 package com.erick.backtech.services;
 
+import com.erick.backtech.common.PedidoRequest;
 import com.erick.backtech.dto.ClienteDTO;
 import com.erick.backtech.dto.PedidoDTO;
 import com.erick.backtech.entities.Cliente;
@@ -23,42 +24,12 @@ public class PedidoService {
     private ClienteRepository clienteRepository;
 
 
-    @Transactional(readOnly = true)
-    public List<PedidoDTO> findAll() {
-        List<Pedido> list = pedidoRepository.findAll();
-        return list.stream().map(x -> new PedidoDTO(x)).collect(Collectors.toList());
-    }
-    @Transactional
-    public List<PedidoDTO> findByCliente(Long id) {
-
-        List<Pedido> list = pedidoRepository.findByClienteId(id);
-        return list.stream().map(x -> new PedidoDTO(x)).collect(Collectors.toList());
-
-    }
-    @Transactional
-    public PedidoDTO insert(PedidoDTO dto) {
-
-        Cliente cliente = clienteRepository.findById(dto.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Cliente not found"));
-
-
-
-        // Pedido pedido = new Pedido(null, dto.getDataPedido(), dto.getDescricao(), dto.getValor(), dto.getStatus(), dto.getCliente());
-
-        Pedido pedido = new Pedido(null, dto.getDataPedido(), dto.getDescricao(), dto.getValor(), dto.getStatus());
-
-
-        pedido = pedidoRepository.save(pedido);
-        return new PedidoDTO(pedido);
-
-
+    public Cliente createPedido (PedidoRequest<Cliente> pedidoRequest) {
+        Cliente cliente = (Cliente) pedidoRequest.getCliente();
+        cliente.getPedidos().forEach(c->c.setCliente(cliente));
+        return clienteRepository.save(cliente);
     }
 
-    //public PedidoDTO setStatus(PedidoDTO dto) {
-//
-    //    Pedido pe
-//
-    //}
-
+    public List<Pedido> getPedidos() { return pedidoRepository.findAll(); }
 
 }

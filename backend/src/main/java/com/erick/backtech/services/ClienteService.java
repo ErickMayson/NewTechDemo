@@ -21,33 +21,25 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
-    @Transactional
-    public ClienteDTO insert(ClienteDTO dto) {
+    public Cliente saveCliente(Cliente cliente) { return repository.save(cliente) ;}
 
-        Cliente cliente = new Cliente(null, dto.getNome(), dto.getEmail(), dto.getTelefone(), dto.getEndereco());
-
-        cliente = repository.save(cliente);
-        return new ClienteDTO(cliente);
-
-
+    public Cliente getCliente(Long id) {
+        Optional<Cliente> cliente = repository.findById(id);
+        return cliente.orElseThrow(() -> new NoSuchElementException("Cliente com ID" + id + "Não encontrado"));
     }
 
-    @Transactional
-    public List<ClienteDTO> findAll() {
-        List<Cliente> list = repository.findAll();
-        return list.stream().map(x -> new ClienteDTO(x)).collect(Collectors.toList());
-    }
-    @Transactional
-    public ClienteDTO getCliente(Long id) {
-        Cliente cliente = repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public List<Cliente> getClientes() { return repository.findAll();}
 
-        // Convert Cliente entity to ClienteDTO
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setId(cliente.getId());
-        clienteDTO.setNome(cliente.getNome());
-        // Set other properties as needed
-
-        return clienteDTO;
+    public Cliente updateCliente(Long id, Cliente updatedCliente) {
+        Cliente existingCliente = repository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Cliente com ID" + id + "Não encontrado"));
+        existingCliente.setNome(updatedCliente.getNome());
+        existingCliente.setEmail(updatedCliente.getEmail());
+        existingCliente.setTelefone((updatedCliente.getTelefone()));
+        existingCliente.setEndereco((updatedCliente.getEndereco()));
+        return repository.save(existingCliente);
     }
+
+
+
 }

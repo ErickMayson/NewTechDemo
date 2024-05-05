@@ -1,8 +1,10 @@
 package com.erick.backtech.controllers;
 
+import com.erick.backtech.common.PedidoRequest;
 import com.erick.backtech.dto.ClienteDTO;
 import com.erick.backtech.dto.PedidoDTO;
 import com.erick.backtech.entities.Cliente;
+import com.erick.backtech.entities.Pedido;
 import com.erick.backtech.services.ClienteService;
 import com.erick.backtech.services.PedidoService;
 import org.apache.coyote.Response;
@@ -20,32 +22,12 @@ public class PedidoController {
     @Autowired
     private PedidoService service;
 
+    @PostMapping("/addPedido")
+    public Cliente addPedido (@RequestBody PedidoRequest<Cliente> pedidoRequest) {
+        return service.createPedido(pedidoRequest);
+    }
+
     @GetMapping
-    public ResponseEntity<List<PedidoDTO>> findAll() {
-        List<PedidoDTO> list = service.findAll();
-        return ResponseEntity.ok().body(list);
-    }
-
-    @GetMapping(value="/pedidos/{clienteId}")
-    public ResponseEntity<List<PedidoDTO>> findByCliente( @PathVariable Long clienteId) {
-
-        List<PedidoDTO> list = service.findByCliente(clienteId);
-        return ResponseEntity.ok(list);
-
-
-    }
-
-
-    @PostMapping
-    public ResponseEntity<PedidoDTO> insert(@RequestBody PedidoDTO dto) {
-        dto = service.insert(dto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
-        return ResponseEntity.created(uri).body(dto);
-    }
-
-    //public ResponseEntity<PedidoDTO>
-
-
-
+    public List<Pedido> getPedidos() { return service.getPedidos(); }
 
 }

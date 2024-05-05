@@ -20,23 +20,15 @@ public class ClienteController {
     private ClienteService service;
 
     @PostMapping
-    public ResponseEntity<ClienteDTO> insert(@RequestBody ClienteDTO dto) {
-        dto = service.insert(dto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
-        return ResponseEntity.created(uri).body(dto);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<ClienteDTO>> findAll() {
-        List<ClienteDTO> list = service.findAll();
-        return ResponseEntity.ok().body(list);
-    }
+    public Cliente saveCliente(@RequestBody Cliente cliente) {return service.saveCliente((cliente));}
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteDTO> getCliente(@PathVariable Long id) {
-        ClienteDTO dto = service.getCliente(id); // Corrected the variable name and added a semicolon
-        return ResponseEntity.ok().body(dto);
-    }
+    public Cliente getCliente(@PathVariable Long id) { return service.getCliente(id);}
+
+    @GetMapping
+    public List<Cliente> getClientes() { return service.getClientes();}
+
+
 
 
 }
