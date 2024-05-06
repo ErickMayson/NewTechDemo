@@ -4,6 +4,7 @@ import com.erick.backtech.dto.ClienteDTO;
 import com.erick.backtech.entities.Cliente;
 import com.erick.backtech.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/clientes")
@@ -26,7 +28,12 @@ public class ClienteController {
     public Cliente getCliente(@PathVariable Long id) { return service.getCliente(id);}
 
     @GetMapping
-    public List<Cliente> getClientes() { return service.getClientes();}
+    public ResponseEntity<Object> getClientes() {
+        List<Cliente> clientesList = service.getClientes();
+
+        // Create a response object with key "Clientes"
+        return new ResponseEntity<>(Map.of("clientes", clientesList), HttpStatus.OK);
+    }
 
 
 
