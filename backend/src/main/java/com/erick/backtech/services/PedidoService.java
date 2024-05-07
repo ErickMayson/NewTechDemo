@@ -54,7 +54,7 @@ public class PedidoService {
     @Transactional
     public Pedido updatePedido(Long id, PedidoDTO updatedPedido) {
         Pedido existingPedido = pedidoRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Pedido com ID " + id + " Não encontrado"));
+                .orElseThrow(() -> new NoSuchElementException("Pedido com ID " + id + " nao encontrado"));
         existingPedido.setDataPedido(updatedPedido.getDataPedido());
         existingPedido.setDescricao(updatedPedido.getDescricao());
         existingPedido.setValor((updatedPedido.getValor()));
@@ -65,7 +65,7 @@ public class PedidoService {
     @Transactional
     public Pedido setAceito(Long id) {
         Pedido pedido = pedidoRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Pedido com ID " + id + " não encontrado"));
+                .orElseThrow(() -> new NoSuchElementException("Pedido com ID " + id + " nao encontrado"));
 
         pedido.setStatus(StatusPedido.ACEITO);
 

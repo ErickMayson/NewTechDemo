@@ -27,44 +27,65 @@ public class PedidoController {
     private PedidoService service;
 
     @PostMapping("/addPedido")
-    public Pedido addPedido (@RequestBody PedidoDTO dto) {
-        return service.createPedido(dto);
+    public ResponseEntity<Object> addPedido(@RequestBody PedidoDTO dto) {
+        try {
+            Pedido pedido = service.createPedido(dto);
+            return new ResponseEntity<>(pedido, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping
-    public ResponseEntity<Object>  getPedidos() {
-
-        List<Pedido> pedidosList = service.getPedidos();
-
-        // Create a response object with key "Clientes"
-        return new ResponseEntity<>(Map.of("pedidos", pedidosList), HttpStatus.OK);
-
+    public ResponseEntity<Object> getPedidos() {
+        try {
+            List<Pedido> pedidosList = service.getPedidos();
+            // Create a response object with key "pedidos"
+            return new ResponseEntity<>(Map.of("pedidos", pedidosList), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @GetMapping(path="/cliente/id")
+    @GetMapping(path = "/cliente/id")
     public ResponseEntity<Object> getByClienteId(@RequestParam Long id) {
-
-        List<Pedido> pedidosList = service.getPedidosByCliente(id);
-
-        // Create a response object with key "Clientes"
-        return new ResponseEntity<>(Map.of("pedidos", pedidosList), HttpStatus.OK);
-
+        try {
+            List<Pedido> pedidosList = service.getPedidosByCliente(id);
+            // Create a response object with key "pedidos"
+            return new ResponseEntity<>(Map.of("pedidos", pedidosList), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @PutMapping(path="/editPedido/{id}")
-    public Pedido updatePedido(@PathVariable Long id , @RequestBody PedidoDTO dto) {
-        return service.updatePedido(id, dto);
+    @PutMapping(path = "/editPedido/{id}")
+    public ResponseEntity<Object> updatePedido(@PathVariable Long id, @RequestBody PedidoDTO dto) {
+        try {
+            Pedido pedido = service.updatePedido(id, dto);
+            return new ResponseEntity<>(pedido, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @PutMapping(path="/{id}/aceito")
-    public Pedido setAceito(@PathVariable Long id) {
-        return service.setAceito(id);
-
+    @PutMapping(path = "/{id}/aceito")
+    public ResponseEntity<Object> setAceito(@PathVariable Long id) {
+        try {
+            Pedido pedido = service.setAceito(id);
+            return new ResponseEntity<>(pedido, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    @PutMapping(path="/{id}/recusado")
-    public Pedido setRecusado(@PathVariable Long id) {
-        return service.setRecusado(id);
 
+    @PutMapping(path = "/{id}/recusado")
+    public ResponseEntity<Object> setRecusado(@PathVariable Long id) {
+        try {
+            Pedido pedido = service.setRecusado(id);
+            return new ResponseEntity<>(pedido, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

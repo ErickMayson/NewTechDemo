@@ -23,17 +23,34 @@ public class ClienteController {
     private ClienteService service;
 
     @PostMapping
-    public Cliente saveCliente(@RequestBody Cliente cliente) {return service.saveCliente((cliente));}
+    public ResponseEntity<Object> saveCliente(@RequestBody Cliente cliente) {
+        try {
+            Cliente savedCliente = service.saveCliente(cliente);
+            return new ResponseEntity<>(savedCliente, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @GetMapping("/{id}")
-    public Cliente getCliente(@PathVariable Long id) { return service.getCliente(id);}
+    public ResponseEntity<Object> getCliente(@PathVariable Long id) {
+        try {
+            Cliente cliente = service.getCliente(id);
+            return new ResponseEntity<>(cliente, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @GetMapping
     public ResponseEntity<Object> getClientes() {
-        List<Cliente> clientesList = service.getClientes();
-
-        // Create a response object with key "Clientes"
-        return new ResponseEntity<>(Map.of("clientes", clientesList), HttpStatus.OK);
+        try {
+            List<Cliente> clientesList = service.getClientes();
+            // Create a response object with key "Clientes"
+            return new ResponseEntity<>(Map.of("clientes", clientesList), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
