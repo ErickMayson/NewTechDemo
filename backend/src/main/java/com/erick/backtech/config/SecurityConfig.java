@@ -26,7 +26,7 @@ class securityConfig {
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("**").permitAll()
-                                .requestMatchers("/product-service/**")
+                                .requestMatchers("/**")
                                 .authenticated()
                 )
                 .build();

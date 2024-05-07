@@ -27,7 +27,7 @@ public class PedidoDTO implements Serializable {
     private Double valor;
     private StatusPedido status;
 
-    private Long cliente_id;
+    private Long cliente;
 
 
     // Method to parse a string into a Date object

@@ -38,7 +38,7 @@ public class PedidoService {
                 .valor(dto.getValor())
                 .descricao(dto.getDescricao())
                 .status(dto.getStatus())
-                .cliente(dto.getCliente_id())
+                .cliente(dto.getCliente())
                 .build();
 
         return pedidoRepository.save(pedido);
@@ -50,6 +50,16 @@ public class PedidoService {
     public List<Pedido> getPedidosByCliente(Long id) {
 
         return pedidoRepository.findByCliente(id);
+    }
+    @Transactional
+    public Pedido updatePedido(Long id, PedidoDTO updatedPedido) {
+        Pedido existingPedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Pedido com ID " + id + " Não encontrado"));
+        existingPedido.setDataPedido(updatedPedido.getDataPedido());
+        existingPedido.setDescricao(updatedPedido.getDescricao());
+        existingPedido.setValor((updatedPedido.getValor()));
+        existingPedido.setStatus((updatedPedido.getStatus()));
+        return pedidoRepository.save(existingPedido);
     }
 
     @Transactional

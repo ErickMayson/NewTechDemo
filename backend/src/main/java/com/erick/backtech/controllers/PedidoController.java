@@ -19,6 +19,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value="/pedidos")
 public class PedidoController {
@@ -41,10 +42,20 @@ public class PedidoController {
     }
 
     @GetMapping(path="/cliente/id")
-    public List<Pedido> getByClienteId(@RequestParam Long id) {
+    public ResponseEntity<Object> getByClienteId(@RequestParam Long id) {
 
-        return service.getPedidosByCliente(id);
+        List<Pedido> pedidosList = service.getPedidosByCliente(id);
+
+        // Create a response object with key "Clientes"
+        return new ResponseEntity<>(Map.of("pedidos", pedidosList), HttpStatus.OK);
+
     }
+
+    @PutMapping(path="/editPedido/{id}")
+    public Pedido updatePedido(@PathVariable Long id , @RequestBody PedidoDTO dto) {
+        return service.updatePedido(id, dto);
+    }
+
     @PutMapping(path="/{id}/aceito")
     public Pedido setAceito(@PathVariable Long id) {
         return service.setAceito(id);
